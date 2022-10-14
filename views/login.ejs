@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/headers') %>
+    <title>AdminPanel | Log in</title>
+
+</head>
+
+<body class="hold-transition login-page">
+    <div id="response"></div>
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="./index.php"><b>Agrisar</b></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+
+                <form id="loginForm" method="POST">
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Email" name="email" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password" name="password"  required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <!-- /.col -->
+                        <div class="col-12">
+                            <button type="submit" id="submitBtn" class="btn btn-primary btn-block d-flex align-items-center justify-content-around" id="submit">
+                                <span class="d-inline-block" id="sign-in-info">Sign In</span>
+                              
+                            </button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+
+
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+
+    <!-- /.login-box -->
+    <%- include('partials/scripts') %>
+
+
+    <script>
+        let baseUrl = `<?php echo $configs['baseUrl']; ?>`;
+        $(document).ready(function() {
+            $('#loginForm').submit(function(e) {
+                e.preventDefault();
+                let formData = JSON.stringify($('#loginForm').serializeObject());
+                $.ajax({
+                    url: `${baseUrl}/admin/login`,
+                    type: 'POST',
+                    data: formData,
+                    contentType: "application/JSON",
+                    beforeSend: function(){
+                        $('#sign-in-info').html('Signing in...')
+                    }, 
+                    complete: function() {
+                        $('#sign-in-info').html('Sign in');
+                    },
+                    success: function(result) {
+                        setCookie('token', result.token, 1);
+                        redirectToIndexPage();
+                    },
+                    error: function(xhr, response, text) {
+                        $('#response').html(`<div class="alert alert-danger">${xhr.responseJSON.error}</div>`);
+                    }
+                });
+            });
+
+            function redirectToIndexPage() {
+                location.href = './index.php';
+            }
+
+            function setCookie(name, value, daysToLive) {
+                // Encode value in order to escape semicolons, commas, and whitespace
+                var cookie = name + "=" + encodeURIComponent(value);
+
+                if (typeof daysToLive === "number") {
+                    /* Sets the max-age attribute so that the cookie expires
+                    after the specified number of days */
+                    cookie += "; max-age=" + (daysToLive * 24 * 60 * 60);
+
+                    document.cookie = cookie;
+                }
+            }
+
+            function getCookie(name) {
+                // Split cookie string and get all individual name=value pairs in an array
+                var cookieArr = document.cookie.split(";");
+
+                // Loop through the array elements
+                for (var i = 0; i < cookieArr.length; i++) {
+                    var cookiePair = cookieArr[i].split("=");
+
+                    /* Removing whitespace at the beginning of the cookie name
+                    and compare it with the given string */
+                    if (name == cookiePair[0].trim()) {
+                        // Decode the cookie value and return
+                        return decodeURIComponent(cookiePair[1]);
+                    }
+                }
+
+                // Return null if not found
+                return null;
+            }
+
+            $.fn.serializeObject = function() {
+                var o = {};
+                var a = this.serializeArray();
+                $.each(a, function() {
+                    if (o[this.name]) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            };
+
+        });
+    </script>
+
+</body>
+
+</html>

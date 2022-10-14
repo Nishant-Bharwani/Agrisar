@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/headers') %>
+        <%- include('partials/datatable-headers') %>
+
+            <title>Product Details</title>
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <!-- Confirm Delete Modal Dialog -->
+    <div class="modal fade bd-example-modal-lg" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center justify-content-between">
+                    <h4 class="modal-title">Delete Parmanently</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure about this ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirm" data-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Edit Category Modal Dialog -->
+    <div class="modal fade" id="editCategoryModal" role="dialog" aria-labelledby="editCategoryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center justify-content-end">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Category</h3>
+                        </div>
+                        <!-- /.card-header -->
+
+                        <div class="card-body">
+                            <form id="editCategoryForm">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-around align-items-center">
+                                        <div class="category-img align-self-center">
+                                            <h6 class="mx-auto">Category Image</h6>
+                                            <div class="spinner-border m-3" role="status" clas="spinner-img">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                            <img src="" class="mx-auto" height="100%" width="100%">
+                                        </div>
+                                        <div class="illustration_art align-self-center">
+                                            <h6 class="mx-auto">Illustration Art</h6>
+                                            <div class="spinner-border m-3" role="status" class="spinner-img">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                            <img src="" class="mx-auto" height="100%" width="100%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Category ID</label>
+
+                                            <input type="number" class="form-control" placeholder="Enter Category ID"
+                                                name="category_id" id="category-id-input" required disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter Category Name"
+                                                name="name" value="" id="category-name-input">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Description -->
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Enter New Description for this Category"
+                                                name="description"></input>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- checkbox -->
+                                        <div class="form-group">
+                                            <label for="categoryIMG">Choose Category image</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="categoryIMG"
+                                                        name="photo">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose an
+                                                        image</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- checkbox -->
+                                        <div class="form-group">
+                                            <label for="illArt">Choose Illustration Art</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="illArt"
+                                                        name="illustration_art">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        Illustration Art Image</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-12 justify-content-end align-items-center">
+                                        <div class="card-footer">
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary float-right"
+                                                id="submitBtn">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Category Modal Dialog -->
+    <div class="modal fade" id="addCategory" role="dialog" aria-labelledby="addCategoryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center justify-content-end">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Add Category</h3>
+                        </div>
+                        <!-- /.card-header -->
+
+                        <div class="card-body">
+                            <form id="addCategoryForm">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter Category Name"
+                                                name="name" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Description -->
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <input class="form-control" type="text"
+                                                placeholder="Enter Description for this Category"
+                                                name="description"></input>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- checkbox -->
+                                        <div class="form-group">
+                                            <label for="addCatImg">Choose Category Image</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="addCatImg"
+                                                        name="photo" required>
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose an
+                                                        image</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="addIllArt">Choose Illustration Art Image</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="addIllArt"
+                                                        name="illustration_art" required>
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose an
+                                                        image</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card-footer">
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary float-right"
+                                                id="submitBtn">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Main Content Wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <%- include('partials/navbar') %>
+
+            <!-- Main sidebar Container -->
+            <%- include('partials/left_side_bar') %>
+
+
+                <div class="content-wrapper">
+                    <div id="response" style="top: 0; left: 0; position: sticky; text-align: center;"></div>
+                    <section class="content-header">
+                        <div class="container-fluid">
+                        </div>
+                    </section>
+
+
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">All Products</h3>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" title="ADD CATEGORY"
+                                                data-toggle="modal" data-target="#addCategory">
+                                                <i class="fas fa-plus nav-icon"></i>&nbsp;Add Product
+                                            </button>
+                                            <!-- <form action="./get_deleted_category.php" style="display: inline-block;">
+                                                <button type="submit" class="btn btn-tool" title="BIN"><i
+                                                        class="fas fa-recycle"></i>&nbsp;BIN</button>
+                                            </form> -->
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card-header -->
+
+                                    <div class="card-body pt-3">
+
+
+                                        <table class="table table-hover table-bordered" id="categoryTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Price</th>
+                                                    <th>Quantity Left</th>
+                                                    <th>Description</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <div class="spinner-border align-self-center m-3" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                    </section>
+                </div>
+                <%- include('partials/footer') %>
+    </div>
+
+
+    <!-- Required Scripts -->
+    <%- include('partials/scripts') %>
+
+        <!-- Data table Scripts -->
+        <%- include('partials/datatable-scripts') %>
+
+            <!-- bs-custom-file-input -->
+            <script>
+                $(function () {
+                    bsCustomFileInput.init();
+                });
+            </script>
+
+
+            <script>
+                if (performance.navigation.type == 2) {
+                    location.reload(true);
+                }
+            </script>
+
+            <!-- Script for Changing Active highlight in left_side_bar -->
+            <script>
+                $(document).ready(function () {
+                    document.querySelector('#categories-link').classList.add('active');
+                    document.querySelector('#cities-link').classList.remove('active');
+                    document.querySelector('#pincodes-link').classList.remove('active');
+                    document.querySelector('#mappings-link').classList.remove('active');
+                    document.querySelector('#quantity-link').classList.remove('active');
+                    document.querySelector('#orders-link').classList.remove('active');
+                    document.querySelector('#carousel-link').classList.remove('active');
+                });
+            </script>
+
+            <script>
+                // Get Cookie Function
+                function getCookie(name) {
+                    // Split cookie string and get all individual name=value pairs in an array
+                    var cookieArr = document.cookie.split(";");
+
+                    // Loop through the array elements
+                    for (var i = 0; i < cookieArr.length; i++) {
+                        var cookiePair = cookieArr[i].split("=");
+
+                        /* Removing whitespace at the beginning of the cookie name
+                        and compare it with the given string */
+                        if (name == cookiePair[0].trim()) {
+                            // Decode the cookie value and return
+                            return decodeURIComponent(cookiePair[1]);
+                        }
+                    }
+
+                    // Return null if not found
+                    return null;
+                }
+            </script>
+
+            <!-- Script for Filling Data Table -->
+            <script>
+                let baseUrl = `<?php echo $configs['baseUrl']; ?>`;
+
+                // data = [
+                //     [
+                //         "1",
+                //         "Nishant",
+                //         "Helloo"
+                //     ],
+                //     [
+                //         "1",
+                //         "Nishant",
+                //         "Helloo"
+                //     ],
+                //     [
+                //         "1",
+                //         "Nishant",
+                //         "Helloo"
+                //     ],
+                //     [
+                //         "1",
+                //         "Nishant",
+                //         "Helloo"
+                //     ],
+                //     [
+                //         "1",
+                //         "Nishant",
+                //         "Helloo"
+                //     ]
+                // ];
+                // let categoryTable = $('#categoryTable').DataTable({
+                //     data: data
+                // });
+
+                // let categoryTable = $('#categoryTable').DataTable({
+                //     ajax: {
+                //         url: `${baseUrl}/admin/productmanagement/getCategory`,
+                //         "dataSrc": "",
+                //         type: 'GET',
+                //         headers: {
+                //             'Authorization': `Bearer ${getCookie('token')}`
+                //         },
+                //         beforeSend: function() {
+                //             $('.spinner-border').show();
+                //         },
+                //         complete: function() {
+                //             $('.spinner-border').hide();
+                //         },
+                //         error: function(xhr, response, text) {
+                //             $('#response').html(`<div class="alert alert-danger">${xhr.responseJSON.error}</div>`);
+                //         }
+                //     },
+                //     "columns": [{
+                //             data: 'id'
+                //         },
+                //         {
+                //             data: 'name'
+                //         },
+                //         {
+                //             data: 'description'
+                //         },
+                //         {
+                //             data: 'id',
+                //             render: function(data, type, row, meta) {
+                //                 return `<div class="d-flex w-100 justify-content-around align-items-center flex-wrap text-right project-actions">  
+                //                             <a class="btn btn-primary btn-sm" href="./get_sub_categories.php?category_id=${row.id}&category_name=${row.name}"><i class="fas fa-folder"></i>&nbsp;&nbsp;View Sub Categories</a>
+                //                             <a class="btn btn-info btn-sm" href="" data-toggle="modal" data-target="#editCategoryModal" category-id=${row.id} category-name="${row.name}" category-desc="${row.description}" title="EDIT"><i class="fas fa-pencil-alt"></i>&nbsp;&nbsp;Edit</a>
+                //                             <a class="btn btn-danger btn-sm" href="" data-toggle="modal" data-target="#confirmDelete" data-title="Delete Category" data-message="Are you sure you want to delete this category?"  title="DELETE" id="delete-btn" category-id=${row.id}><i class="fas fa-trash"></i>&nbsp;&nbsp;Delete</a>
+                //                             </div>`;
+                //             }
+                //         }
+                //     ],
+                //     dom: 'lBfrtip',
+                //     buttons: ['pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'],
+                //     "lengthMenu": [10, 25, 50, 100],
+                //     "paging": true,
+                //     "lengthChange": false,
+                //     "searching": true,
+                //     "ordering": true,
+                //     "info": true,
+                //     "autoWidth": false,
+                //     "responsive": true,
+                //     "scrollY": 400,
+                //     "scrollCollapse": true,
+                // });
+
+                let categoryId;
+                let categoryName;
+                let categoryDesc;
+
+                // Fetching API for add category
+                document.getElementById('addCategoryForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    let formData = new FormData(this);
+                    fetch(`${baseUrl}/admin/productmanagement/addCategory`, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Authorization': `Bearer ${getCookie('token')}`,
+                        }
+                    }).then(async function (response) {
+                        let res = await response.json();
+                        let status = response.status;
+                        return {
+                            res,
+                            status
+                        };
+                    }).then(function (response) {
+                        if (response.status != 200) {
+                            $('#response').html(`<div class="alert alert-danger">${response.res.error}</div>`);
+                            return;
+                        }
+                        $('#response').html(`<div class="alert alert-success">${response.res.message}</div>`);
+                        categoryTable.ajax.reload();
+                    }).catch(function (error) {
+                        $('#response').html(`<div class="alert alert-danger">${error}</div>`);
+                    });
+                });
+
+
+                $('#editCategoryModal').on('show.bs.modal', function (e) {
+                    let $categoryId = $(e.relatedTarget).attr('category-id');
+                    $('#category-id-input').attr('value', $categoryId);
+                    categoryDesc = $(e.relatedTarget).attr('category-desc');
+                    $('#category-name-input').attr('value', $(e.relatedTarget).attr('category-name'));
+                    $.ajax({
+                        url: `${baseUrl}/admin/productmanagement/getCategory/${$categoryId}`,
+                        type: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${getCookie('token')}`
+                        },
+                        beforeSend: function () {
+                            $('.spinner-img').show();
+                            $('.category-img img').hide();
+                            $('.illustration_art img').show();
+                        },
+                        complete: function () {
+                            $('.spinner-img').hide();
+                            $('.category-img img').show();
+                            $('.illustration_art img').show();
+                        },
+                        success: function (result) {
+                            $('.category-img img').attr('src', result.photo);
+                            $('.illustration_art img').attr('src', result.illustration_art);
+                        },
+                        error: function (xhr, response, err) {
+                            if (xhr.status == 401) {
+                                location.href = 'login.php'
+                            }
+                        }
+                    });
+
+                });
+
+
+                // Fetching API for Edit category
+                document.getElementById('editCategoryForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    let formData = new FormData(this);
+                    formData.append('category_id', this['category_id'].value);
+                    formData.append('name', this['name'].value);
+
+
+                    if (this['description'].value != '') {
+                        formData.append('description', this['description'].value);
+                    } else {
+                        formData.append('description', categoryDesc.trim());
+                    }
+
+                    if (this['photo'].value != '') {
+                        console.log("photo updated");
+                        formData.append('photo', this['photo'].value);
+                    } else {
+                        formData.delete('photo');
+                    }
+
+                    if (this['illustration_art'].value != '') {
+                        console.log("art updated");
+                        formData.append('illustration_art', this['illustration_art'].value);
+                    } else {
+                        formData.delete('illustration_art');
+                    }
+
+
+                    fetch(`${baseUrl}/admin/productmanagement/editCategory`, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Authorization': `Bearer ${getCookie('token')}`,
+                        }
+                    }).then(async function (response) {
+                        let res = await response.json();
+                        let status = response.status;
+                        return {
+                            res,
+                            status
+                        };
+                    }).then(function (response) {
+                        if (response.status != 200) {
+                            $('#response').html(`<div class="alert alert-danger">${response.res.error}</div>`);
+                            return;
+                        }
+                        $('#response').html(`<div class="alert alert-success">${response.res.message}</div>`);
+                        categoryTable.ajax.reload();
+                    }).catch(function (error) {
+                        $('#response').html(`<div class="alert alert-danger">${error}</div>`);
+                    });
+                });
+
+
+
+                //  Script for Filling Confirm Delete dialog Box 
+                $('#confirmDelete').on('show.bs.modal', function (e) {
+                    let $message = $(e.relatedTarget).attr('data-message');
+                    $(this).find('.modal-body p').text($message);
+                    let $title = $(e.relatedTarget).attr('data-title');
+                    $(this).find('.modal-title').text($title);
+                    let $categoryId = $(e.relatedTarget).attr('category-id');
+                    categoryId = $categoryId;
+                    // Pass form reference to modal for submission on yes/ok
+                    var form = $(e.relatedTarget).closest('form');
+                    $(this).find('.modal-footer #confirm').data('form', form);
+                });
+
+                // Fetching API for Delete category
+                $('#confirm').click(function () {
+                    let bodyData = {
+                        "category_id": categoryId
+                    }
+
+                    $.ajax({
+                        url: `${baseUrl}/admin/productmanagement/deleteCategory`,
+                        type: 'DELETE',
+                        data: JSON.stringify(bodyData),
+                        contentType: "application/JSON",
+                        headers: {
+                            'Authorization': `Bearer ${getCookie('token')}`
+                        },
+                        success: function (result) {
+                            $('#response').html(`<div class="alert alert-success">${result.message}</div>`);
+                            categoryTable.ajax.reload();
+                        },
+                        error: function (xhr, response, text) {
+                            $('#response').html(`<div class="alert alert-danger">${xhr.responseJSON.error}</div>`);
+                        }
+
+                    });
+
+
+                });
+            </script>
+
+
+
+</body>
+
+</html>
