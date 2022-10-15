@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/headers') %>
+        <%- include('partials/datatable-headers') %>
+
+            <title>Product Details</title>
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <!-- Confirm Delete Modal Dialog -->
+    <!-- <div class="modal fade bd-example-modal-lg" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center justify-content-between">
+                    <h4 class="modal-title">Delete Parmanently</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure about this ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirm" data-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Edit Category Modal Dialog -->
+    <div class="modal fade" id="storeProductModal" role="dialog" aria-labelledby="storeProductModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center justify-content-end">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Store Product</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <form id="storeProductForm">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Crop Name</label>
+
+                                            <input type="text" class="form-control" placeholder="Enter Crop Name"
+                                                name="cropName" id="cropNameInput" required>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Quantity</label>
+                                            <input type="number" class="form-control" placeholder="Enter Quantity"
+                                                name="quantity" id="quantityInput" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input type="number" class="form-control" placeholder="Enter Price"
+                                                name="price" id="priceInput" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 justify-content-end align-items-center">
+                                        <div class="card-footer">
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary float-right"
+                                                id="submitBtn">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Category Modal Dialog -->
+
+
+
+
+    <!-- Main Content Wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <%- include('partials/navbar') %>
+
+            <!-- Main sidebar Container -->
+            <%- include('partials/left_side_bar') %>
+
+
+                <div class="content-wrapper">
+                    <div id="response" style="top: 0; left: 0; position: sticky; text-align: center;"></div>
+                    <section class="content-header">
+                        <div class="container-fluid">
+                        </div>
+                    </section>
+
+
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">All Stored Products</h3>
+
+                                        <!-- <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" title="ADD CATEGORY"
+                                                data-toggle="modal" data-target="#addCategory">
+                                                <i class="fas fa-plus nav-icon"></i>&nbsp;Add Product
+                                            </button>
+                                        </div> -->
+
+                                    </div>
+                                    <!-- /.card-header -->
+
+                                    <div class="card-body pt-3">
+
+
+                                        <table class="table table-hover table-bordered w-100" id="warehouseTable">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th>Id</th> -->
+                                                    <th>Warehouse Name</th>
+                                                    <th>Warehouse City</th>
+                                                    <th>Warehouse Pincode</th>
+                                                    <th></th>
+                                                    <!-- <th>Crop Name</th> -->
+                                                    <!-- <th>Quantity</th>
+                                                    <th>Price</th> -->
+                                                    <!-- <th></th> -->
+                                                </tr>
+                                            </thead>
+
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <!-- <div class="spinner-border align-self-center m-3" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div> -->
+                                </div>
+                            </div>
+                    </section>
+                </div>
+                <%- include('partials/footer') %>
+    </div>
+
+
+    <!-- Required Scripts -->
+    <%- include('partials/scripts') %>
+
+        <!-- Data table Scripts -->
+        <%- include('partials/datatable-scripts') %>
+
+            <!-- bs-custom-file-input -->
+            <!-- <script>
+                $(function () {
+                    bsCustomFileInput.init();
+                });
+            </script> -->
+
+
+            <!-- <script>
+                if (performance.navigation.type == 2) {
+                    location.reload(true);
+                }
+            </script> -->
+
+            <!-- Script for Changing Active highlight in left_side_bar -->
+            <!-- <script>
+                $(document).ready(function () {
+                    document.querySelector('#products-link').classList.add('active');
+                    document.querySelector('#cities-link').classList.remove('active');
+                    document.querySelector('#pincodes-link').classList.remove('active');
+                    document.querySelector('#mappings-link').classList.remove('active');
+                    document.querySelector('#quantity-link').classList.remove('active');
+                    document.querySelector('#orders-link').classList.remove('active');
+                    document.querySelector('#carousel-link').classList.remove('active');
+                });
+            </script> -->
+
+            <script>
+                // Get Cookie Function
+                function getCookie(name) {
+                    // Split cookie string and get all individual name=value pairs in an array
+                    var cookieArr = document.cookie.split(";");
+
+                    // Loop through the array elements
+                    for (var i = 0; i < cookieArr.length; i++) {
+                        var cookiePair = cookieArr[i].split("=");
+
+                        /* Removing whitespace at the beginning of the cookie name
+                        and compare it with the given string */
+                        if (name == cookiePair[0].trim()) {
+                            // Decode the cookie value and return
+                            return decodeURIComponent(cookiePair[1]);
+                        }
+                    }
+
+                    // Return null if not found
+                    return null;
+                }
+            </script>
+
+
+
+
+            <script>
+                $(document).ready(function () {
+
+                    let baseUrl = `http://localhost:8000`;
+                    console.log(`${baseUrl}/api/warehouse/getWarehouses/${getCookie("userId")}`);
+                    let productTable = $('#warehouseTable').DataTable({
+                        ajax: {
+                            url: `${baseUrl}/api/warehouse/getWarehouses/${getCookie("userId")}`,
+                            dataSrc: "",
+                            type: 'GET',
+                            // success: function (result) {
+                            //     console.log(result);
+                            // },
+
+
+
+                            error: function (xhr, response, text) {
+                                $('#response').html(`<div class="alert alert-danger">${xhr.responseJSON.error}</div>`);
+                            },
+                        },
+                        columns: [
+                            { data: 'name' },
+                            { data: 'city' },
+                            { data: 'pinCode' },
+                            {
+                                data: '_id',
+                                render: function (data, type, row, meta) {
+                                    return `<div class="text-primary text-decoration-underline" style="cursor: pointer;" data-toggle="modal" data-target="#storeProductModal" warehouseId=${row._id}><a>Store a Product</a></div>`;
+                                }
+                            }
+                        ],
+                        dom: 'lBfrtip',
+                        buttons: ['pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'],
+                        "lengthMenu": [10, 25, 50, 100],
+                        "paging": true,
+                        "lengthChange": false,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false,
+                        "responsive": true,
+                        "scrollY": 400,
+                        "scrollCollapse": true,
+                    });
+
+
+
+                    let $warehouseId;
+                    $('#storeProductModal').on('show.bs.modal', function (e) {
+                        $warehouseId = $(e.relatedTarget).attr('warehouseId');
+
+                    });
+
+                    document.getElementById('storeProductForm').addEventListener('submit', function (e) {
+                        e.preventDefault();
+
+
+                        console.log(JSON.stringify({
+                            farmerId: getCookie("userId"),
+                            warehouseId: $warehouseId,
+                            cropName: $('#cropNameInput').val(),
+                            quantity: Number($('#quantityInput').val()),
+                            price: Number($('#priceInput').val())
+                        }));
+
+                        fetch(`${baseUrl}/api/products/storeProduct`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                farmerId: getCookie("userId"),
+                                warehouseId: $warehouseId,
+                                cropName: $('#cropNameInput').val(),
+                                quantity: Number($('#quantityInput').val()),
+                                price: Number($('#priceInput').val())
+                            }),
+                            headers: {
+                                "Content-Type": "application/json",
+                                // "Content-Type": "multipart/form-data",
+                            },
+                            credentials: 'same-origin'
+
+                        }).then(async function (response) {
+                            let res = await response.json();
+                            let status = response.status;
+                            return {
+                                res,
+                                status
+                            };
+                        }).then(function (response) {
+                            console.log(response);
+                            if (response.status != 200) {
+                                $('#response').html(`<div class="alert alert-danger">${response.res.error}</div>`);
+                                return;
+                            }
+                            $('#response').html(`<div class="alert alert-success">${response.res.message}</div>`);
+                            // productTable.ajax.reload();
+                        }).catch(function (error) {
+                            $('#response').html(`<div class="alert alert-danger">${error}</div>`);
+                        });
+                    });
+                });
+
+            </script>
+
+
+</body>
+
+</html>

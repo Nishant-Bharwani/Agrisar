@@ -26,6 +26,8 @@ class AuthController {
 
         if (user.password === password) {
             return res.status(200).json({
+                userId: user._id,
+                type: user.type,
                 message: "Login Successfull."
             });
         } else {

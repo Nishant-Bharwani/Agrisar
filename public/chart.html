@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="chart-style.css">
+    <title>Prediction Result</title>
+</head>
+<body>
+    <html>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<body>
+<div id="myChart" style="padding-left:338px;width:100%; max-width:600px; height:500px;"></div>
+
+<script>
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+var data = google.visualization.arrayToDataTable([
+  ['Contry', 'Mhl'],
+  ['Rice',55],
+  ['wheat',49],
+  ['maze',44],
+  ['USA',24],
+  ['Argentina',15]
+]);
+
+var options = {
+  title:'Agrisar Plus - Crop Growth Predictor'
+};
+
+var chart = new google.visualization.BarChart(document.getElementById('myChart'));
+  chart.draw(data, options);
+}
+</script>
+
+</body>
+</html>
+</body>
+</html>

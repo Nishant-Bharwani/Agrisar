@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="agrisar-plus.css">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <title>Agrisar Plus</title>
+</head>
+
+<body>
+  <section class="get-in-touch head">
+    <h2 class="title">- Agrisar Plus -</h2>
+    <div class="container">
+      <div class="contact-form row">
+
+        <div class="form-field col-lg-12">
+          <input id="name" class="input-text" type="text">
+          <label for="name" class="label" id="K">Enter the amount of Phosphorus</label>
+        </div>
+
+        <div class="form-field col-lg-12">
+          <input id="email" class="input-text" type="text">
+          <label for="email" class="label" id="P">Enter the amount of Pottasium</label>
+        </div>
+
+        <div class="form-field col-lg-12">
+          <input id="subject" class="input-text" type="text">
+          <label for="subject" class="label" id="N">Enter the amount of Nitrogen</label>
+        </div>
+
+        <div class="form-field col-lg-12 button-form">
+          <button id="submit" class="submit-btn"><a href="">Predict</a></button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div id="myChart" style="padding-left:338px;width:100%; max-width:600px; height:500px;"></div>
+
+  <script>
+
+
+    document.getElementById('myChart').addEventListener('submit', function (e) {
+      e.preventDefault();
+      fetch(`http://127.0.0.1:8000/api/plus/search`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: {
+          "phosphorus": document.getElementById('K').value,
+          "photassium": document.getElementById('P').value,
+          "nitrogen": document.getElementById('N').value
+        }
+      }).then(async function (response) {
+        let res = await response.json();
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+      }).then(function (response) {
+        if (response.status != 200) {
+          console.log(response.res.error);
+          return;
+        }
+        console.log(response.res.message);
+        // productTable.ajax.reload();
+      }).catch(function (error) {
+        console.log(error);
+      });;
+
+
+
+
+
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Crop', '%'],
+          ['sugarcane', 55],
+          ['carrot', 49],
+          ['patato', 44],
+          ['rice', 24],
+          ['pulses', 15],
+
+        ]);
+
+
+        var chart = new google.visualization.BarChart(document.getElementById('myChart'));
+        chart.draw(data, options);
+      }
+    })
+
+
+
+  </script>
+</body>
+
+</html>

@@ -10,7 +10,7 @@
 
 <body class="hold-transition sidebar-mini">
     <!-- Confirm Delete Modal Dialog -->
-    <div class="modal fade bd-example-modal-lg" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel"
+    <!-- <div class="modal fade bd-example-modal-lg" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -31,8 +31,7 @@
 
 
     <!-- Edit Category Modal Dialog -->
-    <div class="modal fade" id="editCategoryModal" role="dialog" aria-labelledby="editCategoryModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="productModal" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center justify-content-end">
@@ -41,115 +40,28 @@
                 <div class="modal-body">
                     <div class="card card-warning">
                         <div class="card-header">
-                            <h3 class="card-title">Edit Category</h3>
+                            <h3 class="card-title">Products in this Warehouse</h3>
                         </div>
                         <!-- /.card-header -->
 
                         <div class="card-body">
-                            <form id="editCategoryForm">
-                                <div class="row">
-                                    <div class="col-12 d-flex justify-content-around align-items-center">
-                                        <div class="category-img align-self-center">
-                                            <h6 class="mx-auto">Category Image</h6>
-                                            <div class="spinner-border m-3" role="status" clas="spinner-img">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                            <img src="" class="mx-auto" height="100%" width="100%">
-                                        </div>
-                                        <div class="illustration_art align-self-center">
-                                            <h6 class="mx-auto">Illustration Art</h6>
-                                            <div class="spinner-border m-3" role="status" class="spinner-img">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                            <img src="" class="mx-auto" height="100%" width="100%">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Category ID</label>
+                            <table class="table table-hover table-bordered" style="width: 100% !important;"
+                                id="productTable">
+                                <thead>
+                                    <tr>
+                                        <th>Crop Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <!-- <th>Crop Name</th> -->
+                                        <!-- <th>Quantity</th>
+                                        <th>Price</th> -->
+                                        <!-- <th></th> -->
+                                    </tr>
+                                </thead>
 
-                                            <input type="number" class="form-control" placeholder="Enter Category ID"
-                                                name="category_id" id="category-id-input" required disabled>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter Category Name"
-                                                name="name" value="" id="category-name-input">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <!-- Description -->
-                                        <div class="form-group">
-                                            <label>Description</label>
-                                            <input type="text" class="form-control"
-                                                placeholder="Enter New Description for this Category"
-                                                name="description"></input>
-                                        </div>
-                                    </div>
-                                </div>
+                            </table>
 
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <!-- checkbox -->
-                                        <div class="form-group">
-                                            <label for="categoryIMG">Choose Category image</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="categoryIMG"
-                                                        name="photo">
-                                                    <label class="custom-file-label" for="exampleInputFile">Choose an
-                                                        image</label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <!-- checkbox -->
-                                        <div class="form-group">
-                                            <label for="illArt">Choose Illustration Art</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="illArt"
-                                                        name="illustration_art">
-                                                    <label class="custom-file-label" for="exampleInputFile">Choose
-                                                        Illustration Art Image</label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="col-12 justify-content-end align-items-center">
-                                        <div class="card-footer">
-                                            <button type="button" class="btn btn-default"
-                                                data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-primary float-right"
-                                                id="submitBtn">Submit</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </form>
                         </div>
                         <!-- /.card-body -->
                         </form>
@@ -228,7 +140,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 
@@ -254,17 +166,13 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">All Products</h3>
+                                        <h3 class="card-title">Cart</h3>
 
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" title="ADD CATEGORY"
+                                            <button type="button" class="btn btn-tool" style="font-size: 20px; " title="ADD CATEGORY"
                                                 data-toggle="modal" data-target="#addCategory">
-                                                <i class="fas fa-plus nav-icon"></i>&nbsp;Add Product
+                                                Buy Cart
                                             </button>
-                                            <!-- <form action="./get_deleted_category.php" style="display: inline-block;">
-                                                <button type="submit" class="btn btn-tool" title="BIN"><i
-                                                        class="fas fa-recycle"></i>&nbsp;BIN</button>
-                                            </form> -->
                                         </div>
 
                                     </div>
@@ -273,13 +181,17 @@
                                     <div class="card-body pt-3">
 
 
-                                        <table class="table table-hover table-bordered" id="productTable">
+                                        <table class="table table-hover table-bordered w-100" id="cartTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
+                                                    <!-- <th>Id</th> -->
+                                                    <th>Crop Name</th>
+                                                    <th>Quantity</th>
                                                     <th>Price</th>
-                                                    <th>Quantity Left</th>
-                                                    <th>Status</th>
+                                                    <!-- <th>Crop Name</th> -->
+                                                    <!-- <th>Quantity</th>
+                                                    <th>Price</th> -->
+                                                    <!-- <th></th> -->
                                                 </tr>
                                             </thead>
 
@@ -318,7 +230,7 @@
             </script> -->
 
             <!-- Script for Changing Active highlight in left_side_bar -->
-            <script>
+            <!-- <script>
                 $(document).ready(function () {
                     document.querySelector('#products-link').classList.add('active');
                     document.querySelector('#cities-link').classList.remove('active');
@@ -328,7 +240,7 @@
                     document.querySelector('#orders-link').classList.remove('active');
                     document.querySelector('#carousel-link').classList.remove('active');
                 });
-            </script>
+            </script> -->
 
             <script>
                 // Get Cookie Function
@@ -358,17 +270,19 @@
 
             <script>
                 $(document).ready(function () {
+
                     let baseUrl = `http://localhost:8000`;
-                    console.log(`${baseUrl}/api/products/getProducts/${getCookie("userId")}`);
-                    let productTable = $('#productTable').DataTable({
+                    console.log(`${baseUrl}/api/sell/viewCart`);
+                    console.log(getCookie("userId"));
+                    let productTable = $('#cartTable').DataTable({
                         ajax: {
-                            url: `${baseUrl}/api/products/getProducts/${getCookie("userId")}`,
+                            url: `${baseUrl}/api/sell/viewCart/${getCookie("userId")}`,
                             dataSrc: "",
-                            dataType: 'json',
                             type: 'GET',
-                            // success: function (result) {
-                            //     console.log(result);
-                            // },
+                            // data: JSON.parse(JSON.stringify({
+                            //     buyerId: getCookie("userId")
+                            // })),
+
                             error: function (xhr, response, text) {
                                 $('#response').html(`<div class="alert alert-danger">${xhr.responseJSON.error}</div>`);
                             },
@@ -376,8 +290,7 @@
                         columns: [
                             { data: 'cropName' },
                             { data: 'quantity' },
-                            { data: 'price' },
-                            { data: 'status' },
+                            { data: 'price' }
                         ],
                         dom: 'lBfrtip',
                         buttons: ['pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'],
@@ -386,7 +299,7 @@
                         "lengthChange": false,
                         "searching": true,
                         "ordering": true,
-                        "info": true, 
+                        "info": true,
                         "autoWidth": false,
                         "responsive": true,
                         "scrollY": 400,
@@ -394,47 +307,6 @@
                     });
                 });
 
-
-
-                document.getElementById('addProductForm').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    let formData = new FormData(this);
-                    console.log($('#cropName').val(), $('#quantity').val(), $('#price').val());
-                    const data = JSON.stringify({
-                        farmerId: getCookie("userId"),
-                        cropName: $('#cropName').val(),
-                        quantity: Number($('#quantity').val()),
-                        price: Number($('#price').val()),
-                        status: 'produced'
-                    });
-                    console.log(data);
-
-                    let baseUrl = `http://localhost:8000`;
-                    fetch(`${baseUrl}/api/products/addProducts/${getCookie("userId")}`, {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: data
-                    }).then(async function (response) {
-                        let res = await response.json();
-                        let status = response.status;
-                        return {
-                            res,
-                            status
-                        };
-                    }).then(function (response) {
-                        if (response.status != 200) {
-                            $('#response').html(`<div class="alert alert-danger">${response.res.error}</div>`);
-                            return;
-                        }
-                        $('#response').html(`<div class="alert alert-success">${response.res.message}</div>`);
-                        // productTable.ajax.reload();
-                    }).catch(function (error) {
-                        $('#response').html(`<div class="alert alert-danger">${error}</div>`);
-                    });
-                });
             </script>
 
 

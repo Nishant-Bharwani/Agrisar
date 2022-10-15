@@ -1,0 +1,346 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&family=Pacifico&family=Roboto+Slab&display=swap');
+
+*{
+    padding: 2px;
+    margin:0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body{
+    overflow-x: hidden;
+}
+nav{
+    width: 100%;
+}
+
+nav ul li .agrisar-plus-a{
+    text-decoration: none;  
+    list-style: none;
+    background-color: black;
+    color: white;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    text-decoration: none;
+}
+
+
+label.logo{
+    color: rgb(7, 148, 35);
+    font-family: 'Pacifico', cursive;
+    font-size: 30px;
+    font-weight: bolder;
+    line-height: 93px;
+    padding: 0 50px;
+}
+
+label.logo:hover{
+    cursor: pointer;
+}
+
+nav ul{
+    font-family: 'Fuzzy Bubbles', cursive;
+    font-weight: bolder;
+    gap: 3rem;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    float: right;
+    margin-right: 30px;
+}
+
+nav ul li{
+    font-weight: bolder;
+    line-height: 50px;
+    margin: 0 5px;
+}
+
+nav ul li:hover{
+    cursor: pointer;
+    color:green;
+}
+
+nav ul li button{
+    border-radius: 20px;
+    /* height: 50px; */
+    line-height: 2;
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+    background-color: black;
+    width: 150px;
+}
+
+nav ul li button:hover{
+    cursor: pointer;
+    background-color: rgb(61, 65, 61);
+    color: rgb(241, 255, 241);    
+}
+
+.agri{
+    font-weight: bolder;
+    font-size: 5rem;
+    color: rgb(34, 34, 34);width: 3%;
+    padding-top: 64px;
+    padding-left: 86px;
+    margin-left: 100px;
+}
+
+#agri-text{
+    padding-left: 90px;
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: rgb(139, 135, 135);
+
+    margin-left: 50px;
+}
+
+#agri-text #agri-texts{
+    margin-left: 50px;
+}
+/* .nav-btn{
+    padding-left: 100px;
+    padding-top: 50px;
+    border-radius: 100px;
+    
+} */
+
+ /* img{
+    animation: up down 2s ease-in-out alternate-reverse both;
+}
+
+.col-6 .animated img.nav-img {
+    -webkit-animation: mover 1s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+img.nav-img {
+    -webkit-animation: mover 1s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+} */
+
+
+
+.nav-btn {
+  padding: 6px 14px;
+  border: 2px solid #1a80d7;
+  border-radius: 50px;
+  font-size: 24px;
+  font-weight:500;
+  width: 170px;
+  line-height: 23px;
+  border-color:  #4B91F7;
+  color: #1a80d7
+}
+
+.nav-button{
+    font-size: 21px;
+    padding-left: 200px;
+    padding-top: 40px;
+}
+
+.nav-btn:hover {
+    transition: 0.5s;
+  background-color: #4B91F7;
+  color: white;
+}
+
+.col-6 img{
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 30px;
+    width: 600px;
+    height: 400px;
+    object-fit: absolute;
+    border-radius: 80px;
+}
+
+.img-nav{
+    padding-left: 0px;
+}
+
+
+/* ABOUT */
+
+
+
+#about-it{
+    width: 20%;
+    margin: auto;
+    text-align: center;
+    /* padding-bottom: 10px; */
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 80px;
+    /* border-bottom: 2px solid rgba(0,0,0,0.3); */
+    color: #5543ca;
+    background: linear-gradient(to right, #46a26b 0%, #087d10 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* .right-about{
+     border-top: 2px solid black;
+    width: 2%; 
+} */
+
+#about-p{
+    margin-top: 20px;
+    color: #484848;
+    font-family: 'Roboto Slab', serif;
+    font-size: 18px;
+    font-weight:550;
+}
+
+/* Card */
+
+#card-head{
+    width: 20%;
+    margin: auto;
+    text-align: center;
+    /* padding-bottom: 10px; */
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    color: #5543ca;
+    background: linear-gradient(to right, #46a26b 0%, #087d10 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.cc{
+    /* color: green;
+    background-color: green; */
+}
+.card-color{
+    background-color: rgb(224, 229, 224);
+    }
+.cc .card-title{
+    background-color: rgb(224, 229, 224);
+}
+
+.cc .card-text{
+    background-color: rgb(224, 229, 224);
+}
+/* 
+.card-color, .cc .card-title, .cc .card-text:hover{
+    background-color: white;
+} */
+.card-body{
+    min-height: 200px;
+}
+/* .cc{
+   
+} */
+
+
+
+/*  */
+
+
+/* Contact Form */
+
+.get-in-touch{
+    max-width: 800px;
+    margin: 50px auto;
+    padding-top: 50px;
+    position: relative;
+    box-shadow: 0 10px 30px 0px rgba(0,0,0,0.1);
+    padding-top: 30px;
+}
+
+.get-in-touch .title{
+    text-transform: uppercase;
+    text-align: center;
+    /* letter-spacing: 3px; */
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 48px;
+    padding-bottom: 20px;
+    color: #5543ca;
+    background: linear-gradient(to right, #7fc39a 0%, #087d10 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.contact-form .form-field{
+    position: relative;
+    margin: 32px 0;
+}
+
+.contact-form .input-text{
+    display: block;
+    width: 100%;
+    height: 36px;
+    border-width: 0 0 2px 0;
+    border-color: #06470a;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+}
+.contact-form .input-text:focus + .label, 
+.contact-form .input-text.not-empty + .label{
+    transform: translateY(-24px);
+}
+
+.contact-form .input-text:focus{
+    outline: none;
+}
+
+.contact-form .label{
+    position: absolute;
+    left: 20px;
+    bottom: 11px;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #0a5e09;
+    cursor: text;
+    text-transform: capitalize;
+    transition: 0.2s ease-in-out;
+}
+
+.contact-form  .submit-btn{
+    display: inline-block;
+    background-image: linear-gradient(125deg, #71e1a5, #18600a);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: none;
+    width: 200px;
+    cursor: pointer;
+    margin-left: 253px;
+    border-radius: 50px;
+}
+
+.contact-form  .submit-btn:hover{
+    background-color: green;
+}
+
+
+footer{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#footer-content{
+}
+
+

@@ -1,4 +1,6 @@
 const Ware = require('../models/warehouse-model');
+const ProductModel = require('../models/product-model');
+const { set } = require('mongoose');
 // const ProductModel = require('../models/product-model');
 // const UserModel = require('../models/user-model');
 // const StoredModel = require('../models/stored-model');
@@ -37,32 +39,51 @@ class WarehouseController {
             res.status(200).json(all);
     }
 
+    // async getWarehouses(req, res) {
+
+    //     await StoredModel.find()
+
+    // }
+
+    // function onlyUnique(value, index, self) {
+    //     return self.indexOf(value) === index;
+    // }
+
     async getWarehouses(req, res) {
-        console.log("getWarehouses");
+        const farmerId = req.params['farmerId'];
+        const allProducts = await ProductModel.find({
+            farmerId
+        });
 
-        const result = [];
+        console.log(allProducts.length);
 
-        try {
-            const farmerId = req.params['farmerId'];
-            const allWarehouses = await Ware.find();
-            for (let i = 0; i < allWarehouses.length; i++) {
-                const wId = allWarehouses[i]._id;
-                const products = allWarehouses[i].products;
-                for (let j = 0; j < products.length; j++) {
-                    if (products[j].farmerId === farmerId) {
-                        const toPush = {...products[j], warehouseId: wId }
-                        result.push(toPush);
-                    }
-                }
+        
+        let unique = new Set();
+
+        for (let i = 0; i < allProducts.length; i++ ) {
+            if (allProducts[i].warehouseId !== "") {
+                unique.add(allProducts[i].warehouseId);
             }
-
-            return res.status(200).json(result);
-        } catch (err) {
-            return res.status(400).json({
-                error: "Some error occured"
-            });
         }
 
+        const uniqueArray = [...unique];
+        console.log(uniqueArray);
+
+
+        const result = [];
+        let warehouse;
+        for (let i = 0; i < uniqueArray.length; i++) {
+            const warehouseId = uniqueArray[i];
+            warehouse = await Ware.findOne({
+                warehouseId: warehouseId
+            });
+
+            console.log(warehouse);
+            result.push(warehouse);
+
+        }
+
+        return res.status(200).json(result);
 
     }
 

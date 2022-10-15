@@ -2,10 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
+    farmerId: { type: String },
+    warehouseId: { type: String, default: '' },
     cropName: { type: String, required: true },
     quantity: { type: Number, required: true },
     price: { type: Number, required: true },
-    status : { 
+    status: {
         type: String,
         enum: ['produced', 'sold'],
         default: 'produced'

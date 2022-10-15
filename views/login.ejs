@@ -20,10 +20,10 @@
 
                 <form id="loginForm" method="POST">
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email" name="email" required>
+                        <input type="tel" class="form-control" placeholder="Phone" name="phone" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                                <span class="fas fa-phone"></span>
                             </div>
                         </div>
                     </div>
@@ -60,13 +60,14 @@
 
 
     <script>
-        let baseUrl = `<?php echo $configs['baseUrl']; ?>`;
+        let baseUrl = `http://localhost:8000`;
         $(document).ready(function() {
             $('#loginForm').submit(function(e) {
                 e.preventDefault();
                 let formData = JSON.stringify($('#loginForm').serializeObject());
+                console.log(formData);
                 $.ajax({
-                    url: `${baseUrl}/admin/login`,
+                    url: `${baseUrl}/api/auth/login`,
                     type: 'POST',
                     data: formData,
                     contentType: "application/JSON",
@@ -77,17 +78,25 @@
                         $('#sign-in-info').html('Sign in');
                     },
                     success: function(result) {
-                        setCookie('token', result.token, 1);
+                        console.log(result);
+                        setCookie('userId', result.userId, 1);
+                        setCookie('type', result.type, 1);
                         redirectToIndexPage();
+                        
                     },
                     error: function(xhr, response, text) {
-                        $('#response').html(`<div class="alert alert-danger">${xhr.responseJSON.error}</div>`);
+                        $('#response').html(`<div class="alert alert-danger">Wrong Credentials</div>`);
                     }
                 });
             });
 
             function redirectToIndexPage() {
-                location.href = './index.php';
+                if (getCookie("type") === 'farmer') {
+                    location.href = `${baseUrl}/farmerDashboard`;
+                } else {
+                    location.href = `${baseUrl}/buyerDashboard`
+                }   
+
             }
 
             function setCookie(name, value, daysToLive) {

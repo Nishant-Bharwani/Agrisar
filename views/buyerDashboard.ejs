@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/headers') %>
+        <%- include('partials/datatable-headers') %>
+            <title>Manage Cart</title>
+</head>
+
+<body class="hold-transition sidebar-mini">
+
+
+
+    <!-- Edit City Modal Dialog -->
+    <div class="modal fade" id="editCityModal" role="dialog" aria-labelledby="editCityModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center justify-content-end">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit City Name</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <form id="editCityForm">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input type="text" class="form-control" placeholder="Enter New City Name"
+                                                name="name" id="city-input" required>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary float-right"
+                                                id="submitBtn">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add City Modal Dialog -->
+    <div class="modal fade" id="addToCart" role="dialog" aria-labelledby="addToCartLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center justify-content-end">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Add to cart</h3>
+                        </div>
+                        <!-- /.card-header -->
+
+                        <div class="card-body">
+                            <form id="addToCartForm">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Quantity</label>
+                                            <input type="text" class="form-control" placeholder="Enter Quantity"
+                                                name="quantity" id="quantityInput" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary float-right"
+                                                id="submitBtn">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <%- include('partials/navbar') %>
+
+            <!-- Main sidebar Container -->
+            <%- include('partials/left_side_bar') %>
+
+
+                <div class="content-wrapper">
+                    <div id="response" style="top: 0; left: 0; text-align: center;"></div>
+                    <section class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h3>Products</h3>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <ol class="breadcrumb float-sm-right">
+                                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                        <li class="breadcrumb-item active">Products</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+
+                    <section class="content">
+                        <!-- Old Container fluid -->
+                        <div class="container-fluid table-responsive-sm table-responsive-md table-responsive-lg">
+                            <!-- table heading section -->
+
+                            <div class="col-12 my-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <form action="/viewCart">
+                                        <button type="submit" class="btn btn-success float-right">View Cart</button>
+                                    </form>
+                                    <!-- <button type="button" class="btn btn-success float-right mx-3" data-toggle="modal"
+                                        data-target="#addCity" id="add-city-btn">View Cart</button> -->
+                                </div>
+                            </div>
+
+                            <!-- Loader for Table data -->
+                            <!-- <div class="spinner-border align-self-center my-3 mx-auto" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div> -->
+                            <div class="col-12">
+                                <div class="row" id="cityBox">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- Site Footer -->
+                <%- include('partials/footer') %>
+    </div>
+
+
+    <!-- Required Scripts -->
+
+    <%- include('partials/scripts') %>
+
+
+
+        <!-- <script>
+        if (performance.navigation.type == 2) {
+            location.reload(true);
+        }
+    </script> -->
+
+        <!-- Script for Changing Active highlight in left_side_bar -->
+        <!-- <scrip69999999 -->
+
+        <!-- Initialize Select2 Elements -->
+        <script>
+            $('.select2').select2();
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            });
+        </script>
+
+
+        <script>
+            function getCookie(name) {
+                // Split cookie string and get all individual name=value pairs in an array
+                var cookieArr = document.cookie.split(";");
+
+                // Loop through the array elements
+                for (var i = 0; i < cookieArr.length; i++) {
+                    var cookiePair = cookieArr[i].split("=");
+
+                    /* Removing whitespace at the beginning of the cookie name
+                    and compare it with the given string */
+                    if (name == cookiePair[0].trim()) {
+                        // Decode the cookie value and return
+                        return decodeURIComponent(cookiePair[1]);
+                    }
+                }
+
+                // Return null if not found
+                return null;
+            }
+        </script>
+
+        <script>
+            let baseUrl = `http://localhost:8000`;
+
+
+
+            let result = $.ajax({
+                async: false,
+                url: `http://127.0.0.1:8000/api/products/getAllProducts`,
+                type: 'GET',
+                success: function (result) {
+
+                    for (let i = 0; i < result.length; i++) {
+                        $('#cityBox').append(`<div class="col-md-3">
+                    <div class="card card-primary collapsed-card">
+                        <div class="card-header">
+                            <h3 class="card-title">${result[i].cropName}</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                </button>
+                                
+                                <button type="button" class="btn btn-tool" data-toggle="modal"
+                                        data-target="#addToCart" farmerId=${result[i].farmerId} cropName=${result[i].cropName} price=${result[i].price}><i class="fas fa-shopping-cart" title="Add to cart"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <p>Quantity Available: ${result[i].quantity}</p>
+                            <hr>
+                            <p>Price: ${result[i].price}</p>
+                            <hr>
+                            <p class="text-primary text-decoration-underline" style="cursor: pointer;">View Farmer details</p>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>`);
+
+
+                    }
+                },
+                error: function (xhr, response, err) {
+                    $('#response').html(`<div class="alert alert-danger">${xhr.responseJSON.error}</div>`);
+                    if (xhr.status == 401) {
+                        location.href = 'login.php'
+                    }
+                }
+            }).responseJSON;
+
+        </script>
+
+
+        <script>
+
+            let $farmerId;
+            let $cropName;
+            let $price;
+
+            $('#addToCart').on('show.bs.modal', function (e) {
+                $farmerId = $(e.relatedTarget).attr('farmerId');
+                $cropName = $(e.relatedTarget).attr('cropName');
+                $price = $(e.relatedTarget).attr('price');
+            });
+
+            $('#addToCartForm').submit(function (e) {
+                e.preventDefault();
+
+
+                // let bodyData = ;
+
+
+
+
+
+                $.ajax({
+                    url: `${baseUrl}/api/sell/addToCart`,
+                    type: 'POST',
+                    data:JSON.parse(JSON.stringify({
+                        buyerId: getCookie("userId"),
+                        farmerId: $farmerId,
+                        quantity: Number($('#quantityInput').val()),
+                        cropName: $cropName,
+                        price: Number($price)
+                    })),
+                    success: function (result) {
+                        $('#response').html(`<div class="alert alert-success">${result.message}</div>`);
+                    },
+                    error: function (xhr, response, error) {
+                        $('#response').html(`<div class="alert alert-danger">${xhr.responseJSON.error}</div>`);
+                        if (xhr.status == 401) {
+                            location.href = 'login.php'
+                        }
+                    }
+
+
+
+                });
+
+
+
+                //  Script for Filling Confirm Delete dialog Box 
+                // $('#confirmDelete').on('show.bs.modal', function (e) {
+                //     let $message = $(e.relatedTarget).attr('data-message');
+                //     $(this).find('.modal-body p').text($message);
+                //     let $title = $(e.relatedTarget).attr('data-title');
+                //     $(this).find('.modal-title').text($title);
+                //     ci = $(e.relatedTarget).attr('city-id');
+                //     var form = $(e.relatedTarget).closest('form');
+                //     $(this).find('.modal-footer #confirm').data('form', form);
+                // });
+
+
+                // Fetching API for Delete Product
+                // $('#confirm').click(function () {
+                //     let bodyData = {
+                //         "city_id": ci
+                //     }
+
+                //     $.ajax({
+                //         url: `${baseUrl}/admin/productmanagement/deleteCity`,
+                //         type: 'DELETE',
+                //         data: JSON.stringify(bodyData),
+                //         contentType: "application/JSON",
+                //         headers: {
+                //             'Authorization': `Bearer ${getCookie('token')}`
+                //         },
+                //         success: function (result) {
+                //             $('#response').html(`<div class="alert alert-success">${result.message}</div>`);
+                //             location.reload();
+                //         },
+                //         error: function (xhr, response, text) {
+                //             $('#response').html(`<div class="alert alert-danger">${xhr.responseJSON.error}</div>`);
+                //         }
+
+                //     });
+
+
+            });
+        </script>
+
+
+</body>
+
+</html>
